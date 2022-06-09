@@ -6,7 +6,7 @@ import { SinglyLinkedListNode } from './model/singlyLinkedListNode';
  */
 export class SinglyLinkedList<T> {
 
-  private logger = Logger.createLogger(__filename);
+  private logger = Logger.createLogger(process.env.ENVIRONMENT === ('local') ? __filename : '');
   private head!: SinglyLinkedListNode<T>;
   private tail!: SinglyLinkedListNode<T>;
   private size!: number;
