@@ -1,0 +1,24 @@
+{
+  "env": {
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "airbnb-base",
+    "airbnb-typescript/base"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": ["./tsconfig.json"],
+    "sourceType": "module",
+    "createDefaultProgram": true
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "jest"
+  ],
+  "rules": {
+    "import/prefer-default-export": "off",
+    "class-methods-use-this": ["warn"]
+  }
+}
