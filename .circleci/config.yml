@@ -1,16 +1,35 @@
 version: 2.1
+orbs:
+  node: circleci/node@5.0.2
 jobs:
-  build:
-    docker:
-      - image: cimg/base:2021.04
+  build_and_test: # this can be any name you choose
+    executor: node/default # use the default executor defined within the orb
     steps:
       - checkout
-      - run:
-          name: Install
-          command: npm install
+      - node/install-packages:
+          pkg-manager: npm
       - run:
           name: Build
           command: npm run build
       - run:
           name: Test
           command: npm run test
+      # - persist_to_workspace:
+      #     root: ~/project
+      #     paths:
+      #       - .
+# jobs:
+#   build:
+#     docker:
+#       - image: cimg/base:2021.04
+#     steps:
+#       - checkout
+#       - run:
+#           name: Install
+#           command: npm install
+#       - run:
+#           name: Build
+#           command: npm run build
+#       - run:
+#           name: Test
+#           command: npm run test
