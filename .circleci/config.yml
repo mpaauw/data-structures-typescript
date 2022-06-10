@@ -2,8 +2,8 @@ version: 2.1
 orbs:
   node: circleci/node@5.0.2
 jobs:
-  build_and_test: # this can be any name you choose
-    executor: node/default # use the default executor defined within the orb
+  build_and_test:
+    executor: node/default
     steps:
       - checkout
       - node/install-packages:
@@ -18,18 +18,8 @@ jobs:
           root: ~/project
           paths:
             - .
-# jobs:
-#   build:
-#     docker:
-#       - image: cimg/base:2021.04
-#     steps:
-#       - checkout
-#       - run:
-#           name: Install
-#           command: npm install
-#       - run:
-#           name: Build
-#           command: npm run build
-#       - run:
-#           name: Test
-#           command: npm run test
+
+workflows:
+  ci:
+    jobs:
+      - build_and_test
