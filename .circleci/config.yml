@@ -10,7 +10,11 @@ jobs:
           pkg-manager: npm
       - run:
           name: Install
-          command: npm install --force
+          command: |
+            npm install npm -g
+            npm cache clear
+            rm -rf node_modules
+            npm install --force
       - run:
           name: Build
           command: npm run build
