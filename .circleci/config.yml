@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run:
           name: Build
-          command: tsc
+          command: npm run build
       - run:
           name: Test
           command: npm run test
