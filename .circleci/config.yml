@@ -10,7 +10,7 @@ jobs:
           command: |
             echo 'Hello World!'
             echo 'This is the delivery pipeline'
-                  - run:
+      - run:
           name: The Second Step
           command: |
             ls -al
