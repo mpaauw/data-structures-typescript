@@ -36,7 +36,7 @@
     "version": "standard-version",
     "reset-hard": "git clean -dfx && git reset --hard && npm i",
     "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish",
-    "lint": "npx eslint . --ext .ts,.js --fix",
+    "lint": "npx eslint src --ext .ts,.js --fix",
     "prepare": "husky install"
   },
   "engines": {

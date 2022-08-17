@@ -19,6 +19,9 @@
   ],
   "rules": {
     "import/prefer-default-export": "off",
+    "@typescript-eslint/space-before-blocks": "off",
+    "consistent-return": "off",
+    "no-plusplus": "off",
     "class-methods-use-this": ["warn"]
   }
 }
