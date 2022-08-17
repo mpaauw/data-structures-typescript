@@ -36,7 +36,8 @@
     "version": "standard-version",
     "reset-hard": "git clean -dfx && git reset --hard && npm i",
     "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish",
-    "lint": "npx eslint . --ext .ts,.js --fix"
+    "lint": "npx eslint . --ext .ts,.js --fix",
+    "prepare": "husky install"
   },
   "engines": {
     "node": ">=10"
@@ -45,7 +46,6 @@
     "@faker-js/faker": "^7.1.0",
     "@types/node": "^17.0.41",
     "dotenv": "^16.0.1",
-    "eslint-config-airbnb-base": "^15.0.0",
     "winston": "^3.7.2"
   },
   "devDependencies": {
@@ -60,11 +60,14 @@
     "cspell": "^4.1.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.8.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-functional": "^3.0.2",
     "eslint-plugin-import": "^2.22.0",
     "gh-pages": "^3.1.0",
+    "husky": "^8.0.1",
     "jest": "^28.1.1",
     "npm-run-all": "^4.1.5",
     "nyc": "^15.1.0",
