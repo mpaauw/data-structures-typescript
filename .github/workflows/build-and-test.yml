@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Build & Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -16,5 +16,4 @@ jobs:
         run: npm install --force
       - name: Compile
         uses: icrawl/action-tsc@v1
-      - name: Lint
-        run: npm run lint
+
