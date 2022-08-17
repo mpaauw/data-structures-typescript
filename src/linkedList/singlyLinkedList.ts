@@ -11,6 +11,8 @@ export class SinglyLinkedList<T> {
   private tail!: SinglyLinkedListNode<T>;
   private size!: number;
 
+  well this is a bad commit!
+
   public constructor() {
     this.head = new SinglyLinkedListNode<T>();
     this.tail = this.head;
