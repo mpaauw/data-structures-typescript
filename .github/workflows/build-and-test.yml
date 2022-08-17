@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install
-        run: npm install
+        run: npm install --force
       - name: Compile
         uses: icrawl/action-tsc@v1
       - name: Lint
