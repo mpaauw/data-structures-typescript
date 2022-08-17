@@ -22,7 +22,7 @@ export class Logger {
           winston.format.simple(),
           winston.format.json(),
           winston.format.printf((info: any) => {
-            const timestamp = Date.now();
+            const timestamp = new Date().toISOString();
             const { level } = info;
             const message = (info.message || '').toString().trim();
             const logParams = info[Symbol.for('splat')];
