@@ -1,4 +1,4 @@
-[![Build Status](https://app.travis-ci.com/mpaauw/data-structures-typescript.svg?branch=main)](https://app.travis-ci.com/mpaauw/data-structures-typescript)
+![Build Health](https://github.com/mpaauw/data-structures-typescript/actions/workflows/build-and-test.yml/badge.svg)
 
 # data-structures-typescript
 
