@@ -16,4 +16,5 @@ jobs:
         run: npm install --force
       - name: Compile
         uses: icrawl/action-tsc@v1
-
+      - name: Test
+        run: npm run test
