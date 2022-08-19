@@ -14,7 +14,6 @@ export class Logger {
   public static createLogger(filePath: string): winston.Logger {
     return winston.createLogger({
       level: process.env.LOG_LEVEL,
-
       format:
         winston.format.combine(
           winston.format.timestamp(),
@@ -33,7 +32,9 @@ export class Logger {
           }),
         ),
       transports: [
-        new winston.transports.Console(),
+        new winston.transports.Console({
+          silent: process.argv.indexOf('--silent') >= 0,
+        }),
       ],
     });
   }
