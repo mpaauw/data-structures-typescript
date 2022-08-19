@@ -14,12 +14,8 @@ export class SinglyLinkedList<T> {
   private size!: number;
 
   public constructor() {
-    this.head = new SinglyLinkedListNode<T>();
-    this.tail = this.head;
     this.size = 0;
   }
-
-  // testing a good commit
 
   /**
    * Inserts a new value to the head of the Singly-Linked List.
@@ -32,15 +28,22 @@ export class SinglyLinkedList<T> {
         currentListState: this,
       });
 
-      const oldHead = this.head;
-      this.head = new SinglyLinkedListNode<T>();
-      this.head.value = value;
-      this.head.next = oldHead;
+      if (this.head == null) {
+        this.head = new SinglyLinkedListNode<T>();
+        this.head.value = value;
+        this.head.next = this.tail;
+      } else {
+        const oldHead = this.head;
+        this.head = new SinglyLinkedListNode<T>();
+        this.head.value = value;
+        this.head.next = oldHead;
+      }
+
       this.size += 1;
+      this.updateTail(this.head);
 
       this.logger.debug('Successfully inserted value at head of Singly-Linked List.', {
         insertedValue: value,
-        oldHead,
         currentListState: this,
       });
     } catch (error) {
@@ -64,15 +67,21 @@ export class SinglyLinkedList<T> {
         currentListState: this,
       });
 
-      const oldTail = this.tail;
-      this.tail = new SinglyLinkedListNode<T>();
-      this.tail.value = value;
-      oldTail.next = this.tail;
+      if (this.tail == null) {
+        this.tail = new SinglyLinkedListNode<T>();
+        this.tail.value = value;
+      } else {
+        const oldTail = this.tail;
+        this.tail = new SinglyLinkedListNode<T>();
+        this.tail.value = value;
+        oldTail.next = this.tail;
+      }
+
       this.size += 1;
+      this.updateTail(this.tail);
 
       this.logger.debug('Successfully inserted value at tail of Singly-Linked List.', {
         insertedValue: value,
-        oldTail,
         currentListState: this,
       });
     } catch (error) {
@@ -99,7 +108,7 @@ export class SinglyLinkedList<T> {
         currentListState: this,
       });
 
-      if (index < 0 || index > (this.size - 1)) {
+      if (index < 0 || (index > 0 && index > (this.size - 1))) {
         this.logger.warn('Unable to insert value at index in Singly-Linked List; invalid index submitted.', {
           index,
           valueToInsert: value,
@@ -123,6 +132,7 @@ export class SinglyLinkedList<T> {
       newNode.next = iterator.next;
       iterator.next = newNode;
       this.size += 1;
+      this.updateTail(newNode);
 
       this.logger.debug('Successfully inserted value at index in Singly-Linked List.', {
         index,
@@ -145,7 +155,7 @@ export class SinglyLinkedList<T> {
    * @param value value to find.
    * @returns full node of value if found, null if otherwise.
    */
-  public find(value: T): SinglyLinkedListNode<T> {
+  public find(value: T): SinglyLinkedListNode<T> | undefined {
     try {
       this.logger.debug('Attempting to find value in Singly-Linked List...', {
         valueToFind: value,
@@ -171,10 +181,60 @@ export class SinglyLinkedList<T> {
         currentListState: this,
       });
 
-      return null;
+      return undefined;
     } catch (error) {
       this.logger.error('Failed to find value in Singly-Linked List.', {
         valueToFind: value,
+        currentListState: this,
+        error,
+      });
+      throw error;
+    }
+  }
+
+  public findAt(index: number): SinglyLinkedListNode<T> | void {
+    try {
+      this.logger.debug('Attempting to find value at index in Singly-Linked List...', {
+        indexToFind: index,
+        currentListState: this,
+      });
+
+      if (index < 0 || (index > 0 && index > (this.size - 1))) {
+        this.logger.warn('Unable to find value at index in Singly-Linked List; invalid index submitted.', {
+          index,
+          indexToFind: index,
+          currentListState: this,
+        });
+        return;
+      }
+
+      let foundNode!: SinglyLinkedListNode<T>;
+
+      if (index === 0) {
+        foundNode = this.head;
+      } else if (index === this.size - 1) {
+        foundNode = this.tail;
+      } else {
+        let iterator = this.head;
+        for (let i = 0; i < this.size - 1; i++) {
+          if (i === index) {
+            foundNode = iterator;
+            break;
+          }
+          iterator = iterator.next;
+        }
+      }
+
+      this.logger.debug('Successfully found value at index in Singly-Linked List.', {
+        indexToFind: index,
+        foundNode,
+        currentListState: this,
+      });
+
+      return foundNode;
+    } catch (error) {
+      this.logger.error('Failed to find value at index in Singly-Linked List.', {
+        indexToFind: index,
         currentListState: this,
         error,
       });
@@ -201,6 +261,7 @@ export class SinglyLinkedList<T> {
       const newHead = this.head.next;
       this.head = newHead;
       this.size -= 1;
+      this.updateTail(this.head);
 
       this.logger.debug('Successfully removed node from head of Singly-Linked List.', {
         currentListState: this,
@@ -240,6 +301,7 @@ export class SinglyLinkedList<T> {
       iterator.next = null;
       this.tail = iterator;
       this.size -= 1;
+      this.updateTail(this.tail);
 
       this.logger.debug('Successfully removed node from tail of Singly-Linked List.', {
         currentListState: this,
@@ -264,14 +326,8 @@ export class SinglyLinkedList<T> {
         currentListState: this,
       });
 
-      if (index < 0 || index > (this.size - 1)) {
+      if (index < 0 || (index > 0 && index > (this.size - 1))) {
         this.logger.warn('Unable to remove node at index in Singly-Linked List; invalid index submitted.', {
-          index,
-          currentListState: this,
-        });
-        return;
-      } if (this.isEmpty()) {
-        this.logger.warn('Unable to remove node at index in Singly-Linked List; list is empty.', {
           index,
           currentListState: this,
         });
@@ -285,11 +341,12 @@ export class SinglyLinkedList<T> {
       }
 
       let iterator = this.head;
-      for (let i = 0; i < index; i++) {
+      for (let i = 0; i < index - 1; i++) {
         iterator = iterator.next;
       }
       iterator.next = iterator.next.next;
       this.size -= 1;
+      this.updateTail(iterator);
 
       this.logger.debug('Successfully removed node at index in Singly-Linked List.', {
         index,
@@ -311,5 +368,15 @@ export class SinglyLinkedList<T> {
    */
   public isEmpty(): boolean {
     return (this.size === 0);
+  }
+
+  /**
+   * Determines if a node is located at the tail, and updates the class member accordingly.
+   * @param node to check for tail reference.
+   */
+  private updateTail(node: SinglyLinkedListNode<T>): void {
+    if (node.next == null) {
+      this.tail = node;
+    }
   }
 }
