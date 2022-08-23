@@ -1,20 +1,16 @@
-import { Logger } from '../util/logger';
+import { BaseDataStructure } from '../../shared/baseDataStructure';
 import { SinglyLinkedListNode } from './model/singlyLinkedListNode';
 
 /**
  * Contains common functions for a Singly-Linked List data structure.
  */
-export class SinglyLinkedList<T> {
-  private logger = Logger.createLogger(process.env.ENVIRONMENT === ('local') ? __filename : '');
-
+export class SinglyLinkedList<T> extends BaseDataStructure {
   private head!: SinglyLinkedListNode<T>;
 
   private tail!: SinglyLinkedListNode<T>;
 
-  private size!: number;
-
   public constructor() {
-    this.size = 0;
+    super(__filename);
   }
 
   /**

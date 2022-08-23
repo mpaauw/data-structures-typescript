@@ -5,7 +5,7 @@ import util from 'util';
 /**
  * Defines a wrapper around an underlying Log framework, Winston.
  */
-export class Logger {
+export class LoggerUtil {
   /**
    * Creates a Logger.
    * @param filePath of calling class.
