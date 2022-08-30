@@ -375,4 +375,12 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
       this.tail = node;
     }
   }
+
+  /**
+   * Simple method that returns the head node of the List for traversal purposes.
+   * @returns head of Singly-Linked List.
+   */
+  public getHead(): SinglyLinkedListNode<T> {
+    return this.head;
+  }
 }
