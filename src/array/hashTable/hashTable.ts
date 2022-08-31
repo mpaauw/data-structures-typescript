@@ -10,7 +10,7 @@ export class HashTable<K, V> extends BaseDataStructure {
 
   public constructor(numberOfBuckets: number) {
     super(__filename);
-    this.instantiateHashTable(numberOfBuckets);
+    this.init(numberOfBuckets);
   }
 
   public put(
@@ -40,13 +40,13 @@ export class HashTable<K, V> extends BaseDataStructure {
     try {
       const bucketLocation = this.getBucketLocationForKey(key);
       const bucket = this.hashTable[bucketLocation];
-      const node = bucket.getHead();
+      const iteratorNode = bucket.getHead();
       for (let i = 0; i < bucket.size; i++) {
-        if (node.value.key === key) {
+        if (iteratorNode.value.key === key) {
           bucket.removeAt(i);
           this.hashTable[bucketLocation] = bucket;
           this.size -= 1;
-          return node.value;
+          return iteratorNode.value;
         }
       }
 
@@ -65,6 +65,51 @@ export class HashTable<K, V> extends BaseDataStructure {
       throw error;
     }
   }
+
+  public contains(key: K): boolean {
+    try {
+      const bucketLocation = this.getBucketLocationForKey(key);
+      const bucket = this.hashTable[bucketLocation];
+      const iteratorNode = bucket.getHead();
+      for (let i = 0; i < bucket.size; i++) {
+        if (iteratorNode.value.key === key) {
+          return true;
+        }
+      }
+      return false;
+    } catch (error) {
+      this.logger.error('Failed to determine if Hash Table contains key.', {
+        key,
+        currentHashTableState: this,
+        error,
+      });
+      throw error;
+    }
+  }
+
+  public get(key: K): HashTableEntry<K, V> {
+    try {
+      const bucketLocation = this.getBucketLocationForKey(key);
+      const bucket = this.hashTable[bucketLocation];
+      const iteratorNode = bucket.getHead();
+      for (let i = 0; i < bucket.size; i++) {
+        if (iteratorNode.value.key === key) {
+          return iteratorNode.value;
+        }
+      }
+      return undefined;
+    } catch (error) {
+      this.logger.error('Failed to retrieve entry from Hash Table.', {
+        key,
+        currentHashTableState: this,
+        error,
+      });
+      throw error;
+    }
+  }
+
+  // TODO: add method for dynamically
+  // resizing underlying Hash Table based on a specified load factor.
 
   private getBucketLocationForKey(key: K) {
     return this.hash(key) % this.hashTable.length;
@@ -88,7 +133,7 @@ export class HashTable<K, V> extends BaseDataStructure {
     }
   }
 
-  private instantiateHashTable(numberOfBuckets: number): void {
+  private init(numberOfBuckets: number): void {
     try {
       this.hashTable = new Array<SinglyLinkedList<HashTableEntry<K, V>>>();
       for (let i = 0; i < numberOfBuckets; i++) {
