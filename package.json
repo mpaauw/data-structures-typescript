@@ -14,7 +14,7 @@
     "build:module": "tsc -p tsconfig.module.json",
     "fix": "run-s fix:*",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
-    "fix:lint": "eslint src --ext .ts --fix",
+    "lint": "npx eslint . --ext .ts --fix",
     "test": "jest --runInBand --coverage --silent --forceExit --testPathPattern=src/",
     "test:lint": "eslint src --ext .ts",
     "test:prettier": "prettier \"src/**/*.ts\" --list-different",
@@ -36,7 +36,6 @@
     "version": "standard-version",
     "reset-hard": "git clean -dfx && git reset --hard && npm i",
     "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish",
-    "lint": "npx eslint src --ext .ts,.js --fix",
     "prepare": "husky install"
   },
   "engines": {
@@ -101,7 +100,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "cz-conventional-changelog"
+      "path": "git-cz"
     }
   },
   "prettier": {
