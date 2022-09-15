@@ -2,15 +2,7 @@ import * as winston from 'winston';
 import * as path from 'path';
 import util from 'util';
 
-/**
- * Defines a wrapper around an underlying Log framework, Winston.
- */
-export class Logger {
-  /**
-   * Creates a Logger.
-   * @param filePath of calling class.
-   * @returns generated Logger.
-   */
+export class LoggerUtil {
   public static createLogger(filePath: string): winston.Logger {
     return winston.createLogger({
       level: process.env.LOG_LEVEL,
@@ -39,11 +31,6 @@ export class Logger {
     });
   }
 
-  /**
-   * Retrieves the relative path of a file.
-   * @param filePath file from which to retrieve relative path.
-   * @returns relative path of file.
-   */
   private static getRelativePath(filePath: string): string {
     return path.relative(process.cwd(), filePath);
   }
