@@ -19,11 +19,6 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
    */
   public insertAtHead(value: T): void {
     try {
-      this.logger.debug('Attempting to insert value at head of Singly-Linked List...', {
-        valueToInsert: value,
-        currentListState: this,
-      });
-
       if (this.head == null) {
         this.head = new SinglyLinkedListNode<T>();
         this.head.value = value;
@@ -37,11 +32,6 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
 
       this.size += 1;
       this.updateTail(this.head);
-
-      this.logger.debug('Successfully inserted value at head of Singly-Linked List.', {
-        insertedValue: value,
-        currentListState: this,
-      });
     } catch (error) {
       this.logger.error('Failed to insert value at head of Singly-Linked List.', {
         valueToInsert: value,
@@ -58,11 +48,6 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
    */
   public insertAtTail(value: T): void {
     try {
-      this.logger.debug('Attempting to insert value at tail of Singly-Linked List...', {
-        valueToInsert: value,
-        currentListState: this,
-      });
-
       if (this.tail == null) {
         this.tail = new SinglyLinkedListNode<T>();
         this.tail.value = value;
@@ -75,11 +60,6 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
 
       this.size += 1;
       this.updateTail(this.tail);
-
-      this.logger.debug('Successfully inserted value at tail of Singly-Linked List.', {
-        insertedValue: value,
-        currentListState: this,
-      });
     } catch (error) {
       this.logger.error('Failed to insert value at tail of Singly-Linked List.', {
         valueToInsert: value,
@@ -98,12 +78,6 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
    */
   public insertAt(index: number, value: T): void {
     try {
-      this.logger.debug('Attempting to insert value at index in Singly-Linked List...', {
-        index,
-        valueToInsert: value,
-        currentListState: this,
-      });
-
       if (index < 0 || (index > 0 && index > (this.size - 1))) {
         this.logger.warn('Unable to insert value at index in Singly-Linked List; invalid index submitted.', {
           index,
@@ -129,12 +103,6 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
       iterator.next = newNode;
       this.size += 1;
       this.updateTail(newNode);
-
-      this.logger.debug('Successfully inserted value at index in Singly-Linked List.', {
-        index,
-        insertedValue: value,
-        currentListState: this,
-      });
     } catch (error) {
       this.logger.error('Failed to insert value at index in Singly-Linked List.', {
         index,
@@ -153,11 +121,6 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
    */
   public find(value: T): SinglyLinkedListNode<T> | undefined {
     try {
-      this.logger.debug('Attempting to find value in Singly-Linked List...', {
-        valueToFind: value,
-        currentListState: this,
-      });
-
       let iteratorNode = this.head;
       while (iteratorNode != null) {
         if (iteratorNode.value === value) {
@@ -184,11 +147,6 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
 
   public findAt(index: number): SinglyLinkedListNode<T> | void {
     try {
-      this.logger.debug('Attempting to find value at index in Singly-Linked List...', {
-        indexToFind: index,
-        currentListState: this,
-      });
-
       if (index < 0 || (index > 0 && index > (this.size - 1))) {
         this.logger.warn('Unable to find value at index in Singly-Linked List; invalid index submitted.', {
           index,
@@ -215,12 +173,6 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
         }
       }
 
-      this.logger.debug('Successfully found value at index in Singly-Linked List.', {
-        indexToFind: index,
-        foundNode,
-        currentListState: this,
-      });
-
       return foundNode;
     } catch (error) {
       this.logger.error('Failed to find value at index in Singly-Linked List.', {
@@ -237,10 +189,6 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
    */
   public removeAtHead(): void {
     try {
-      this.logger.debug('Attempting to remove node from head of Singly-Linked List...', {
-        currentListState: this,
-      });
-
       if (this.isEmpty() || this.head == null) {
         this.logger.warn('Unable to remove node from head of Singly-Linked List; no head node exists.', {
           currentListState: this,
@@ -252,10 +200,6 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
       this.head = newHead;
       this.size -= 1;
       this.updateTail(this.head);
-
-      this.logger.debug('Successfully removed node from head of Singly-Linked List.', {
-        currentListState: this,
-      });
     } catch (error) {
       this.logger.error('Failed to remove node from head of Singly-Linked List.', {
         currentListState: this,
@@ -270,10 +214,6 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
    */
   public removeAtTail(): void {
     try {
-      this.logger.debug('Attempting to remove node from tail of Singly-Linked List...', {
-        currentListState: this,
-      });
-
       if (this.isEmpty() || this.tail == null) {
         this.logger.warn('Unable to remove node from tail of Singly-Linked List; no tail node exists.', {
           currentListState: this,
@@ -296,10 +236,6 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
 
       this.size -= 1;
       this.updateTail(this.tail);
-
-      this.logger.debug('Successfully removed node from tail of Singly-Linked List.', {
-        currentListState: this,
-      });
     } catch (error) {
       this.logger.error('Failed to remove node from tail of Singly-Linked List.', {
         currentListState: this,
@@ -315,11 +251,6 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
    */
   public removeAt(index: number): void {
     try {
-      this.logger.debug('Attempting to remove node at index in Singly-Linked List...', {
-        index,
-        currentListState: this,
-      });
-
       if (index < 0 || (index > 0 && index > (this.size - 1))) {
         this.logger.warn('Unable to remove node at index in Singly-Linked List; invalid index submitted.', {
           index,
@@ -341,11 +272,6 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
       iterator.next = iterator.next.next;
       this.size -= 1;
       this.updateTail(iterator);
-
-      this.logger.debug('Successfully removed node at index in Singly-Linked List.', {
-        index,
-        currentListState: this,
-      });
     } catch (error) {
       this.logger.error('Failed to remove node at index in Singly-Linked List.', {
         index,

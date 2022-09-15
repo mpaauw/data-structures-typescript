@@ -1,6 +1,6 @@
-import { HashTable } from "./hashTable/hashTable"
+import { HashTable } from "./hashTable"
 import { faker } from '@faker-js/faker';
-import { HashTableEntry } from "./hashTable/model/hashTableEntry";
+import { HashTableEntry } from "./model/hashTableEntry";
 
 describe('hashTable_Tests_', () =>{
 
