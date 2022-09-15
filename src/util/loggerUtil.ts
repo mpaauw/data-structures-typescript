@@ -2,9 +2,7 @@ import * as winston from 'winston';
 import * as path from 'path';
 import util from 'util';
 
-
 export class LoggerUtil {
-
   public static createLogger(filePath: string): winston.Logger {
     return winston.createLogger({
       level: process.env.LOG_LEVEL,

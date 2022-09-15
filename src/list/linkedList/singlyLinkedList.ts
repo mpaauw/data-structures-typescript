@@ -158,18 +158,12 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
         currentListState: this,
       });
 
-      let iterator = this.head;
-      for (let i = 0; i < this.size - 1; i++) {
-        if (iterator.value === value) {
-          this.logger.debug('Successfully found value in Singly-Linked List.', {
-            valueToFind: value,
-            foundNode: iterator,
-            currentListState: this,
-          });
-
-          return iterator;
+      let iteratorNode = this.head;
+      while(iteratorNode != null) {
+        if(iteratorNode.value === value) {
+          return iteratorNode;
         }
-        iterator = iterator.next;
+        iteratorNode = iteratorNode.next;
       }
 
       this.logger.warn('Unable to find value in Singly-Linked List; returning undefined.', {
