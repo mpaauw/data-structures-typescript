@@ -159,8 +159,8 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
       });
 
       let iteratorNode = this.head;
-      while(iteratorNode != null) {
-        if(iteratorNode.value === value) {
+      while (iteratorNode != null) {
+        if (iteratorNode.value === value) {
           return iteratorNode;
         }
         iteratorNode = iteratorNode.next;
