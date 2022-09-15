@@ -15,7 +15,7 @@ describe('singlyLinkedList_Tests_', () => {
   
     test('insertAtHead_InternalError_ThrowError', () => {
       // arrange
-      singlyLinkedList['logger'].debug = jest.fn()
+      jest.spyOn(singlyLinkedList as any, "updateTail")
         .mockImplementationOnce(() => {
           throw new Error();
         });
@@ -48,7 +48,7 @@ describe('singlyLinkedList_Tests_', () => {
 
     test('insertAtTail_InternalError_ThrowError', () => {
       // arrange
-      singlyLinkedList['logger'].debug = jest.fn()
+      jest.spyOn(singlyLinkedList as any, "updateTail")
         .mockImplementationOnce(() => {
           throw new Error();
         });
@@ -81,7 +81,7 @@ describe('singlyLinkedList_Tests_', () => {
 
     test('insertAt_InternalError_ThrowError', () => {
       // arrange
-      singlyLinkedList['logger'].debug = jest.fn()
+      jest.spyOn(singlyLinkedList['logger'] as any, "warn")
         .mockImplementationOnce(() => {
           throw new Error();
         });
@@ -89,9 +89,7 @@ describe('singlyLinkedList_Tests_', () => {
       // act / assert
       expect(() => {
         singlyLinkedList.insertAt(
-          faker.datatype.number({
-            min: 0,
-            max: 10000 }),
+          -1,
           faker.music.songName()
         );
       }).toThrowError();
@@ -208,7 +206,7 @@ describe('singlyLinkedList_Tests_', () => {
 
     test('find_InternalError_ThrowError', () => {
       // arrange
-      singlyLinkedList['logger'].debug = jest.fn()
+      jest.spyOn(singlyLinkedList['logger'], 'warn')
         .mockImplementationOnce(() => {
           throw new Error();
         });
@@ -255,14 +253,14 @@ describe('singlyLinkedList_Tests_', () => {
 
     test('findAt_InternalError_ThrowError', () => {
       // arrange
-      singlyLinkedList['logger'].debug = jest.fn()
+      jest.spyOn(singlyLinkedList['logger'], 'warn')
         .mockImplementationOnce(() => {
           throw new Error();
         });
 
       // act / assert
       expect(() => {
-        singlyLinkedList.findAt(faker.datatype.number());
+        singlyLinkedList.findAt(-1);
       }).toThrowError();
     });
 
@@ -346,7 +344,7 @@ describe('singlyLinkedList_Tests_', () => {
 
     test('removeAtHead_InternalError_ThrowError',  () => {
       // arrange
-      singlyLinkedList['logger'].debug = jest.fn()
+      jest.spyOn(singlyLinkedList as any, 'isEmpty')
         .mockImplementationOnce(() => {
           throw new Error();
         });
@@ -389,7 +387,7 @@ describe('singlyLinkedList_Tests_', () => {
 
     test('removeAtTail_InternalError_ThrowError',  () => {
       // arrange
-      singlyLinkedList['logger'].debug = jest.fn()
+      jest.spyOn(singlyLinkedList as any, 'isEmpty')
         .mockImplementationOnce(() => {
           throw new Error();
         });
