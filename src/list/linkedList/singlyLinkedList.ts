@@ -120,7 +120,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
       }
 
       let iterator = this.head;
-      for (let i = 0; i < index; i++) {
+      for (let i = 0; i < index - 1; i++) {
         iterator = iterator.next;
       }
       const newNode = new SinglyLinkedListNode<T>();
@@ -172,7 +172,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
         iterator = iterator.next;
       }
 
-      this.logger.warn('Unable to find value in Singly-Linked List; returning null.', {
+      this.logger.warn('Unable to find value in Singly-Linked List; returning undefined.', {
         valueToFind: value,
         currentListState: this,
       });
@@ -285,17 +285,21 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
           currentListState: this,
         });
         return;
+      } if (this.size === 1) {
+        this.tail = undefined;
+        this.head = undefined;
+      } else {
+        let iterator = this.head;
+        for (let i = 0; i < this.size - 1; i++) {
+          if (iterator.next === this.tail) {
+            break;
+          }
+          iterator = iterator.next;
+        }
+        iterator.next = null;
+        this.tail = iterator;
       }
 
-      let iterator = this.head;
-      for (let i = 0; i < this.size - 1; i++) {
-        if (iterator.next === this.tail) {
-          break;
-        }
-        iterator = iterator.next;
-      }
-      iterator.next = null;
-      this.tail = iterator;
       this.size -= 1;
       this.updateTail(this.tail);
 
@@ -371,8 +375,14 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
    * @param node to check for tail reference.
    */
   private updateTail(node: SinglyLinkedListNode<T>): void {
-    if (node.next == null) {
-      this.tail = node;
+    if (this.size === 2 && this.head.next != null) { // handle base case at low list sizes
+      this.tail = this.head.next;
+    }
+
+    if (node != null) {
+      if (node.next === null || node.next === undefined) {
+        this.tail = node;
+      }
     }
   }
 

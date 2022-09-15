@@ -1,6 +1,7 @@
 import { SinglyLinkedList } from "./singlyLinkedList";
 import { faker } from '@faker-js/faker';
 import { SinglyLinkedListNode } from "./model/singlyLinkedListNode";
+import { HashTable } from "../../array/hashTable/hashTable";
 
 describe('singlyLinkedList_Tests_', () => {
 
@@ -178,8 +179,7 @@ describe('singlyLinkedList_Tests_', () => {
       expect(insertAtTailSpy).toHaveBeenCalledTimes(1);
     });
 
-    //TODO: fix test errors
-    test.skip('insertAt_Index_Return', () => {
+    test('insertAt_Index_Return', () => {
       // arrange
       populateTestNodes();
       const oldSize = singlyLinkedList['size'];
@@ -197,14 +197,7 @@ describe('singlyLinkedList_Tests_', () => {
 
       // assert
       const newSize = singlyLinkedList['size'];
-      let actualNodeAtIndex = singlyLinkedList['head']
-      for (let i = 0; i < newSize; i++) {
-        if (i === indexToInsert) {
-          actualNodeAtIndex
-          break;
-        }
-        actualNodeAtIndex = actualNodeAtIndex.next;
-      }
+      const actualNodeAtIndex = singlyLinkedList.findAt(indexToInsert) as SinglyLinkedListNode<string>;
       expect(newSize).toEqual(oldSize + 1);
       expect(actualNodeAtIndex.value).toEqual(valueToInsert);
     });
@@ -421,7 +414,7 @@ describe('singlyLinkedList_Tests_', () => {
 
     test('removeAtTail_SuccessfulRemoval_Return', () => {
       // arrange
-      populateTestNodes();
+      populateTestNodes(1);
       const oldSize = singlyLinkedList['size'];
       const oldTail = singlyLinkedList['tail'];
       const expectedNewTail = singlyLinkedList.findAt(oldSize - 2);
@@ -510,9 +503,9 @@ describe('singlyLinkedList_Tests_', () => {
       // assert
       if(oldSize > 1) {
         expect(singlyLinkedList['size']).toEqual(oldSize - 1);
+        expect(removeAtTailSpy).toHaveBeenCalledTimes(1);
       }
       expect(singlyLinkedList['tail']).toEqual(expectedNewTail);
-      expect(removeAtTailSpy).toHaveBeenCalledTimes(1);
     });
 
     test('removeAt_Index_Return', () => {
@@ -540,8 +533,8 @@ describe('singlyLinkedList_Tests_', () => {
    * Small test utility that populates a Singly-Linked list with a random number of nodes with unique values.
    * Number of nodes generates is between 1 - 100.
    */
-  const populateTestNodes = () => {
-    for(let i = 0; i < faker.datatype.number({ min: 1, max: 100 }); i++) {
+  const populateTestNodes = (numberOfNodes: number = 10) => {
+    for(let i = 0; i < (numberOfNodes); i++) {
       singlyLinkedList.insertAtHead(faker.lorem.word() + new Date().getTime());
     }
   };
