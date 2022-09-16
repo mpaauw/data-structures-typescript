@@ -1,6 +1,6 @@
 import { BaseDataStructure } from '../../shared/baseDataStructure';
 import { HashTableEntry } from './model/hashTableEntry';
-import { SinglyLinkedList } from '../../list/linkedList/singlyLinkedList';
+import { SinglyLinkedList } from '../linkedList/singlyLinkedList';
 
 /**
  * Contains common functions for a HashTable data structure.
@@ -21,7 +21,7 @@ export class HashTable<K, V> extends BaseDataStructure {
   public constructor(
     numberOfBuckets: number,
     loadFactor?: number,
-    resizeFactor?: number,
+    resizeFactor?: number
   ) {
     super(__filename);
     this.init(numberOfBuckets);
@@ -144,7 +144,7 @@ export class HashTable<K, V> extends BaseDataStructure {
         {
           key,
           currentHashTableState: this,
-        },
+        }
       );
 
       return undefined;
@@ -170,7 +170,7 @@ export class HashTable<K, V> extends BaseDataStructure {
             currentNumberOfEntries: this.size,
             currentHashTableSize: this.hashTable.length,
             loadFactor: this.loadFactor,
-          },
+          }
         );
 
         const oldHashTable = this.hashTable;
@@ -215,9 +215,9 @@ export class HashTable<K, V> extends BaseDataStructure {
       const stringifiedKey = JSON.stringify(key);
       let hash = 0;
       for (let i = 0; i < stringifiedKey.length; i++) {
-        hash
-          += stringifiedKey.charCodeAt(i) * 100
-          - stringifiedKey.charCodeAt(i - 1 < 0 ? 0 : i - 1);
+        hash +=
+          stringifiedKey.charCodeAt(i) * 100 -
+          stringifiedKey.charCodeAt(i - 1 < 0 ? 0 : i - 1);
       }
       return hash;
     } catch (error) {

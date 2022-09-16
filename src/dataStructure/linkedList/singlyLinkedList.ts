@@ -39,7 +39,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
           valueToInsert: value,
           currentListState: this,
           error,
-        },
+        }
       );
       throw error;
     }
@@ -70,7 +70,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
           valueToInsert: value,
           currentListState: this,
           error,
-        },
+        }
       );
       throw error;
     }
@@ -91,7 +91,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
             index,
             valueToInsert: value,
             currentListState: this,
-          },
+          }
         );
         return;
       }
@@ -121,7 +121,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
           valueToInsert: value,
           currentListState: this,
           error,
-        },
+        }
       );
       throw error;
     }
@@ -147,7 +147,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
         {
           valueToFind: value,
           currentListState: this,
-        },
+        }
       );
 
       return undefined;
@@ -175,7 +175,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
             index,
             indexToFind: index,
             currentListState: this,
-          },
+          }
         );
         return;
       }
@@ -205,7 +205,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
           indexToFind: index,
           currentListState: this,
           error,
-        },
+        }
       );
       throw error;
     }
@@ -221,7 +221,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
           'Unable to remove node from head of Singly-Linked List; no head node exists.',
           {
             currentListState: this,
-          },
+          }
         );
         return;
       }
@@ -236,7 +236,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
         {
           currentListState: this,
           error,
-        },
+        }
       );
       throw error;
     }
@@ -252,7 +252,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
           'Unable to remove node from tail of Singly-Linked List; no tail node exists.',
           {
             currentListState: this,
-          },
+          }
         );
         return;
       }
@@ -279,7 +279,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
         {
           currentListState: this,
           error,
-        },
+        }
       );
       throw error;
     }
@@ -297,7 +297,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
           {
             index,
             currentListState: this,
-          },
+          }
         );
         return;
       }
@@ -323,7 +323,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
           index,
           currentListState: this,
           error,
-        },
+        }
       );
       throw error;
     }
