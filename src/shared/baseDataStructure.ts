@@ -15,4 +15,16 @@ export abstract class BaseDataStructure {
     );
     this.size = 0;
   }
+
+  public isEmpty(): boolean {
+    try {
+      return this.size === 0;
+    } catch (error) {
+      this.logger.error('Failed to determine if Data Structure is empty.', {
+        currentQueueState: this,
+        error,
+      });
+      throw error;
+    }
+  }
 }

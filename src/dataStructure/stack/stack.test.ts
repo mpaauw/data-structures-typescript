@@ -17,14 +17,14 @@ describe('stack_Tests_', () => {
 
       // act / assert
       expect(() => {
-        stack.push(faker.hacker.noun());
+        stack.push(generateUniqueValue());
       }).toThrowError();
     });
 
     test('push_EmptyStack_PushNodeToTop', () => {
       // arrange
       const oldSize = stack['size'];
-      const valueToPush = createUniqueValue();
+      const valueToPush = generateUniqueValue();
 
       // act
       stack.push(valueToPush);
@@ -40,7 +40,7 @@ describe('stack_Tests_', () => {
       populateStack();
       const oldSize = stack['size'];
       const oldTopNode = stack['top'];
-      const valueToPush = createUniqueValue();
+      const valueToPush = generateUniqueValue();
 
       // act
       stack.push(valueToPush);
@@ -139,50 +139,13 @@ describe('stack_Tests_', () => {
     });
   });
 
-  describe('isEmpty_Tests_', () => {
-    test('isEmpty_CatchError_ThrowError', () => {
-      // arrange
-      stack = null;
-
-      // act / assert
-      expect(() => {
-        stack.isEmpty();
-      }).toThrowError();
-    });
-
-    test('isEmpty_EmptyStack_ReturnTrue', () => {
-      // arrange
-      const size = stack['size'];
-
-      // act
-      const result = stack.isEmpty();
-
-      // assert
-      expect(size).toEqual(0);
-      expect(result).toBeTruthy();
-    });
-
-    test('isEmpty_NonEmptyStack_ReturnFalse', () => {
-      // arrange
-      populateStack();
-      const size = stack['size'];
-
-      // act
-      const result = stack.isEmpty();
-
-      // assert
-      expect(size).toBeGreaterThan(0);
-      expect(result).toBeFalsy();
-    });
-  });
-
-  const createUniqueValue = (): string => {
+  const generateUniqueValue = (): string => {
     return faker.hacker.noun() + faker.animal.dog() + new Date().getTime();
   };
 
   const populateStack = (numberOfNodes: number = 10): void => {
     for (let i = 0; i < numberOfNodes; i++) {
-      stack.push(createUniqueValue());
+      stack.push(generateUniqueValue());
     }
   };
 });
