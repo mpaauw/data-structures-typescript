@@ -17,16 +17,14 @@ export class LoggerUtil {
           const message = (info.message || '').toString().trim();
           const logParams = info[Symbol.for('splat')];
           const stringifiedLogParams = (logParams || [])
-            .map((arg: any) =>
-              util.inspect(arg, {
-                colors: true,
-              })
-            )
+            .map((arg: any) => util.inspect(arg, {
+              colors: true,
+            }))
             .join('\n');
           return `[${timestamp}] [${this.getRelativePath(
-            filePath
+            filePath,
           )}] ${level}: ${message}\n${stringifiedLogParams}\n`;
-        })
+        }),
       ),
       transports: [
         new winston.transports.Console({

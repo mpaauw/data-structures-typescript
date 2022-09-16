@@ -11,7 +11,7 @@ export abstract class BaseDataStructure {
 
   public constructor(filename: string) {
     this.logger = LoggerUtil.createLogger(
-      process.env.ENVIRONMENT === 'local' ? filename : ''
+      process.env.ENVIRONMENT === 'local' ? filename : '',
     );
     this.size = 0;
   }
