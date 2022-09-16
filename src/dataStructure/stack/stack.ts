@@ -1,4 +1,4 @@
-import { BaseDataStructure } from '../shared/baseDataStructure';
+import { BaseDataStructure } from '../../shared/baseDataStructure';
 import { StackNode } from './model/stackNode';
 
 /**
@@ -63,8 +63,8 @@ export class Stack<T> extends BaseDataStructure {
   }
 
   /**
-   * Returns the current top-most node's value from the Stack.
-   * @returns the value of the current top-most node.
+   * Returns the value of the Stack's current top-most node.
+   * @returns the value of the Stack's current top-most node.
    */
   public peek(): T | undefined {
     try {
@@ -80,22 +80,6 @@ export class Stack<T> extends BaseDataStructure {
       return this.top.value;
     } catch (error) {
       this.logger.error('Failed to peek value from Stack.', {
-        currentStackState: this,
-        error,
-      });
-      throw error;
-    }
-  }
-
-  /**
-   * Determines whether or not the Stack is empty.
-   * @returns true if empty, false if otherwise.
-   */
-  public isEmpty(): boolean {
-    try {
-      return this.size === 0;
-    } catch (error) {
-      this.logger.error('Failed to determine if Stack is empty.', {
         currentStackState: this,
         error,
       });

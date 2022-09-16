@@ -1,6 +1,6 @@
 import { BaseDataStructure } from '../../shared/baseDataStructure';
 import { HashTableEntry } from './model/hashTableEntry';
-import { SinglyLinkedList } from '../../list/linkedList/singlyLinkedList';
+import { SinglyLinkedList } from '../linkedList/singlyLinkedList';
 
 /**
  * Contains common functions for a HashTable data structure.
