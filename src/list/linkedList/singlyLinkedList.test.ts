@@ -1,7 +1,6 @@
 import { SinglyLinkedList } from "./singlyLinkedList";
 import { faker } from '@faker-js/faker';
 import { SinglyLinkedListNode } from "./model/singlyLinkedListNode";
-import { HashTable } from "../../array/hashTable/hashTable";
 
 describe('singlyLinkedList_Tests_', () => {
 
