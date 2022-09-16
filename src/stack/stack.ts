@@ -18,15 +18,9 @@ export class Stack<T> extends BaseDataStructure {
   public push(value: T): void {
     try {
       if (this.isEmpty()) {
-        this.top = new StackNode<T>(
-          value,
-          null,
-        );
+        this.top = new StackNode<T>(value, null);
       } else {
-        const newNode = new StackNode<T>(
-          value,
-          this.top,
-        );
+        const newNode = new StackNode<T>(value, this.top);
         this.top = newNode;
       }
       this.size += 1;
@@ -47,9 +41,12 @@ export class Stack<T> extends BaseDataStructure {
   public pop(): T | undefined {
     try {
       if (this.isEmpty()) {
-        this.logger.warn('Unable to pop value from Stack; Stack is empty; returning undefined.', {
-          currentStackState: this,
-        });
+        this.logger.warn(
+          'Unable to pop value from Stack; Stack is empty; returning undefined.',
+          {
+            currentStackState: this,
+          }
+        );
         return undefined;
       }
       const poppedValue = this.top.value;
@@ -72,9 +69,12 @@ export class Stack<T> extends BaseDataStructure {
   public peek(): T | undefined {
     try {
       if (this.isEmpty()) {
-        this.logger.warn('Unable to peek value from Stack; Stack is empty; returning undefined.', {
-          currentStackState: this,
-        });
+        this.logger.warn(
+          'Unable to peek value from Stack; Stack is empty; returning undefined.',
+          {
+            currentStackState: this,
+          }
+        );
         return undefined;
       }
       return this.top.value;
