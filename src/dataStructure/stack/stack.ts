@@ -45,7 +45,7 @@ export class Stack<T> extends BaseDataStructure {
           'Unable to pop value from Stack; Stack is empty; returning undefined.',
           {
             currentStackState: this,
-          }
+          },
         );
         return undefined;
       }
@@ -73,7 +73,7 @@ export class Stack<T> extends BaseDataStructure {
           'Unable to peek value from Stack; Stack is empty; returning undefined.',
           {
             currentStackState: this,
-          }
+          },
         );
         return undefined;
       }
