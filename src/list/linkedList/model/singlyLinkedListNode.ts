@@ -3,10 +3,7 @@ export class SinglyLinkedListNode<T> {
 
   public next!: SinglyLinkedListNode<T>;
 
-  public constructor(
-    value?: T,
-    next?: SinglyLinkedListNode<T>,
-  ) {
+  public constructor(value?: T, next?: SinglyLinkedListNode<T>) {
     this.value = value;
     this.next = next;
   }
