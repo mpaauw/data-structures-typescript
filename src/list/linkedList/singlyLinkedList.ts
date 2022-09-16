@@ -145,6 +145,11 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Finds a node at a specified index within the Singly-Linked List.
+   * @param index zero-based index at which to find node.
+   * @returns any relevant nodes found at specified index.
+   */
   public findAt(index: number): SinglyLinkedListNode<T> | void {
     try {
       if (index < 0 || (index > 0 && index > (this.size - 1))) {

@@ -1,6 +1,9 @@
 import { Logger } from 'winston';
 import { LoggerUtil } from '../util/loggerUtil';
 
+/**
+ * Includes common shared functions that can be used within any data structure implementation.
+ */
 export abstract class BaseDataStructure {
   public logger!: Logger;
 

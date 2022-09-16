@@ -8,8 +8,14 @@ import { SinglyLinkedList } from '../../list/linkedList/singlyLinkedList';
 export class HashTable<K, V> extends BaseDataStructure {
   private hashTable!: Array<SinglyLinkedList<HashTableEntry<K, V>>>;
 
+  /**
+   * Numerical factor threshold used to determine when to resize the underlying HashTable data structure.
+   */
   private loadFactor = 0.70;
 
+  /**
+   * Numerical factor used to determine new HashTable size during a resize event.
+   */
   private resizeFactor = 2.0;
 
   public constructor(
@@ -27,6 +33,11 @@ export class HashTable<K, V> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Retrieves the full entry for a given key, if it exists.
+   * @param key key to use during retrieval.
+   * @returns full entry mapped to specified key; undefined if key does not exist / is not found.
+   */
   public get(key: K): HashTableEntry<K, V> {
     try {
       const bucketLocation = this.getBucketLocationForKey(key);
@@ -57,6 +68,11 @@ export class HashTable<K, V> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Determines whether or not a key exists within the HashTable.
+   * @param key key to use during search.
+   * @returns true if key exists, false if otherwise.
+   */
   public contains(key: K): boolean {
     try {
       const bucketLocation = this.getBucketLocationForKey(key);
@@ -78,6 +94,12 @@ export class HashTable<K, V> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Inserts a new entry to the HashTable, given a specified key and value.
+   * @param key key to insert.
+   * @param value value to insert.
+   * @returns newly-created HashTableEntry.
+   */
   public put(
     key: K,
     value: V,
@@ -104,6 +126,11 @@ export class HashTable<K, V> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Removes an entry from the HashTable, if it exists.
+   * @param key key to use during removal.
+   * @returns newly-removed entry, undefined if key does not exist.
+   */
   public remove(key: K): HashTableEntry<K, V> | undefined {
     try {
       const bucketLocation = this.getBucketLocationForKey(key);
@@ -134,6 +161,9 @@ export class HashTable<K, V> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Dynamically performs an internal resize on the HashTable.
+   */
   private resize() {
     try {
       if ((this.size / this.hashTable.length) >= this.loadFactor) {
@@ -168,10 +198,20 @@ export class HashTable<K, V> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Determines a valid numerical bucket location within the underlying HashTable data structure, given a key.
+   * @param key key to use in location hash.
+   * @returns numerical location value, existing within the bucket bounds of the underlying HashTable.
+   */
   private getBucketLocationForKey(key: K): number {
     return this.hash(key) % this.hashTable.length;
   }
 
+  /**
+   * Provides a numerical hash value to a given key.
+   * @param key key value to hash.
+   * @returns hashed numerical key value.
+   */
   private hash(key: K): any {
     try {
       const stringifiedKey = JSON.stringify(key);
@@ -191,6 +231,10 @@ export class HashTable<K, V> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Creates a new underlying HahsTable data structure, with a specified number of buckets.
+   * @param numberOfBuckets total number of buckets to initialize within underlying HashTable data structure.
+   */
   private init(numberOfBuckets: number): void {
     try {
       this.hashTable = new Array<SinglyLinkedList<HashTableEntry<K, V>>>();

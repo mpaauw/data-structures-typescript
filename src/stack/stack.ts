@@ -1,6 +1,9 @@
 import { BaseDataStructure } from '../shared/baseDataStructure';
 import { StackNode } from './model/stackNode';
 
+/**
+ * Contains common functions for a Stack data structure.
+ */
 export class Stack<T> extends BaseDataStructure {
   private top!: StackNode<T>;
 
@@ -8,6 +11,10 @@ export class Stack<T> extends BaseDataStructure {
     super(__filename);
   }
 
+  /**
+   * Inserts a new value within a new node on the top of the Stack.
+   * @param value value to insert.
+   */
   public push(value: T): void {
     try {
       if (this.isEmpty()) {
@@ -33,6 +40,10 @@ export class Stack<T> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Removes the top-most node from the Stack, and returns it's value.
+   * @returns value of the top-most node of the Stack.
+   */
   public pop(): T | undefined {
     try {
       if (this.isEmpty()) {
@@ -54,6 +65,10 @@ export class Stack<T> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Returns the current top-most node's value from the Stack.
+   * @returns the value of the current top-most node.
+   */
   public peek(): T | undefined {
     try {
       if (this.isEmpty()) {
@@ -72,6 +87,10 @@ export class Stack<T> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Determines whether or not the Stack is empty.
+   * @returns true if empty, false if otherwise.
+   */
   public isEmpty(): boolean {
     try {
       return this.size === 0;
