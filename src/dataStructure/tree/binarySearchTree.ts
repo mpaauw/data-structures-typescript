@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign, @typescript-eslint/brace-style */
 import { BaseDataStructure } from '../../shared/baseDataStructure';
 import { BinaryTreeNode } from './model/binaryTreeNode';
 
@@ -8,109 +9,250 @@ export class BinarySearchTree<T> extends BaseDataStructure {
     super(__filename);
   }
 
-  public insert(value: T): void {
+  public insertIteratively(valueToInsert: T): void {
     try {
+      const newNode = new BinaryTreeNode<T>(valueToInsert);
       if (this.size === 0) {
-        this.root = new BinaryTreeNode<T>(value);
+        this.root = newNode;
       } else {
         let traversalNode = this.root;
-        while (this.root != null) {
-          if (traversalNode.value < value) {
+        let parentNode: BinaryTreeNode<T> = null;
+        while (traversalNode != null) {
+          parentNode = traversalNode;
+          if (traversalNode.value <= valueToInsert) {
             traversalNode = traversalNode.rightChild;
           } else {
             traversalNode = traversalNode.leftChild;
           }
         }
-        traversalNode = new BinaryTreeNode<T>(value);
+        if (parentNode.value <= valueToInsert) {
+          parentNode.rightChild = newNode;
+        } else {
+          parentNode.leftChild = newNode;
+        }
       }
 
       this.size += 1;
     } catch (error) {
-      this.logger.error('Failed to insert value into Binary Search Tree.', {
-        valueToInsert: value,
-        currentBinarySearchTreeState: this,
-        error,
-      });
+      this.logger.error(
+        'Failed to insert value iteratively into Binary Search Tree.',
+        {
+          valueToInsert,
+          currentBinarySearchTreeState: this,
+          error,
+        },
+      );
       throw error;
     }
   }
 
-  public remove(value: T): void {
+  public insertRecursively(valueToInsert: T): void {
+    this.root = this.insertRecursivelyInternal(this.root, valueToInsert);
+  }
+
+  private insertRecursivelyInternal(
+    nodeToRecurse: BinaryTreeNode<T>,
+    valueToInsert: T,
+  ): BinaryTreeNode<T> {
+    try {
+      if (nodeToRecurse == null) {
+        nodeToRecurse = new BinaryTreeNode<T>(valueToInsert);
+        this.size += 1;
+        return nodeToRecurse;
+      }
+      if (nodeToRecurse.value < valueToInsert) {
+        return this.insertRecursivelyInternal(
+          nodeToRecurse.rightChild,
+          valueToInsert,
+        );
+      }
+      return this.insertRecursivelyInternal(
+        nodeToRecurse.leftChild,
+        valueToInsert,
+      );
+    } catch (error) {
+      this.logger.error(
+        'Failed to insert value recursively into Binary Search Tree',
+        {
+          nodeToRecurse,
+          valueToInsert,
+          currentBinarySearchTreeState: this,
+          error,
+        },
+      );
+      throw error;
+    }
+  }
+
+  public removeIteratively(valueToRemove: T): void {
     try {
       if (this.isEmpty()) {
         this.logger.warn(
-          'Unable to remove value from Binary Search Tree; Tree is empty.',
+          'Unable to remove value iteratively from Binary Search Tree; Tree is empty.',
           {
+            valueToRemove,
             currentBinarySearchTreeState: this,
           },
         );
         return;
       }
 
+      // traverse tree until either: 1. value to remove is found, or 2. leaf is encountered / end of tree reached / value not found in tree
       let traversalNode = this.root;
-      while (traversalNode != null) {
-        if (traversalNode.value === value) {
-          // if NTR (node-to-remove) has only one child - left - move that into NTR's place
-          if (traversalNode.leftChild && !traversalNode.rightChild) {
-            traversalNode = traversalNode.leftChild;
-            break;
-          } else if (traversalNode.rightChild && !traversalNode.leftChild) {
-            // else, if the opposite of the NTR rule above is true, move right child into node's place
-            traversalNode = traversalNode.rightChild;
-            break;
-          } else {
-            // otherwise, if NTR has two children, move smallest entry of the node's right subtree into the NTR's place. NOTE: be sure to account for right child node itself
-            let subTraversalNode = traversalNode.rightChild;
-            do {
-              if (!subTraversalNode.leftChild) {
-                break;
-              } else {
-                subTraversalNode = subTraversalNode.leftChild;
-              }
-            } while (subTraversalNode != null);
-            traversalNode = subTraversalNode;
-          }
-        } else if (traversalNode.value < value) {
+      let parentNode: BinaryTreeNode<T> = null;
+      while (traversalNode != null && traversalNode.value !== valueToRemove) {
+        parentNode = traversalNode;
+        if (traversalNode.value < valueToRemove) {
           traversalNode = traversalNode.rightChild;
         } else {
           traversalNode = traversalNode.leftChild;
         }
       }
 
-      if (traversalNode === null || traversalNode === undefined) {
+      if (traversalNode == null) {
         this.logger.warn(
-          'Unable to remove value from Binary Search Tree; value not found.',
+          'Unable to remove value iteratively from Binary Search Tree; value not found.',
           {
+            valueToRemove,
             currentBinarySearchTreeState: this,
           },
         );
-      } else {
-        this.size -= 1;
+        return;
       }
+      // check to see if NTR (node to remove) has only one child
+      if (traversalNode.leftChild == null || traversalNode.rightChild == null) {
+        let replacementNode!: BinaryTreeNode<T>;
+
+        // if NTR has no left child, replace with right child
+        if (traversalNode.leftChild == null) {
+          replacementNode = traversalNode.rightChild;
+        } else {
+          // if NTR has no right child, replace with left child.
+          replacementNode = traversalNode.leftChild;
+        }
+
+        // if NTR is the root node of the tree
+        if (parentNode == null) {
+          this.root = replacementNode;
+        }
+
+        // if NTR is the parent node's left or right child, replace
+        if (traversalNode === parentNode.leftChild) {
+          parentNode.leftChild = replacementNode;
+        } else {
+          parentNode.rightChild = replacementNode;
+        }
+      } else {
+        // if NTR has two child nodes, find the inorder successor (or, the smallest node of the NTR's right subtree)
+        let subTraversalNode = traversalNode.rightChild;
+        let subParentNode = null;
+        while (subTraversalNode.leftChild != null) {
+          subParentNode = subTraversalNode;
+          subTraversalNode = subTraversalNode.leftChild;
+        }
+
+        if (subParentNode != null) {
+          subParentNode.leftChild = subTraversalNode.rightChild;
+        } else {
+          traversalNode.rightChild = subTraversalNode.rightChild;
+        }
+
+        traversalNode.value = subTraversalNode.value;
+      }
+
+      this.size -= 1;
     } catch (error) {
-      this.logger.error('Failed to remove value from Binary Search Tree.', {
-        valueToRemove: value,
-        currentBinarySearchTreeState: this,
-        error,
-      });
+      this.logger.error(
+        'Failed to remove value iteratively from Binary Search Tree.',
+        {
+          valueToRemove,
+          currentBinarySearchTreeState: this,
+          error,
+        },
+      );
       throw error;
     }
   }
 
-  public find(value: T): BinaryTreeNode<T> | undefined {
+  public removeRecursively(valueToRemove: T): void {
+    this.root = this.removeRecursivelyInternal(this.root, valueToRemove);
+  }
+
+  private removeRecursivelyInternal(
+    nodeToRecurse: BinaryTreeNode<T>,
+    valueToRemove: T,
+  ): BinaryTreeNode<T> {
+    try {
+      if (nodeToRecurse == null) {
+        return nodeToRecurse;
+      }
+
+      if (nodeToRecurse.value < valueToRemove) {
+        // recursively traverse right subtree
+        nodeToRecurse.rightChild = this.removeRecursivelyInternal(
+          nodeToRecurse.rightChild,
+          valueToRemove,
+        );
+      } else if (nodeToRecurse.value > valueToRemove) {
+        // recursively traverse left subtree
+        nodeToRecurse.leftChild = this.removeRecursivelyInternal(
+          nodeToRecurse.leftChild,
+          valueToRemove,
+        );
+      } else {
+        // NTR has been found, act accordingly
+        if (nodeToRecurse.leftChild == null) {
+          this.size -= 1;
+          return nodeToRecurse.rightChild;
+        }
+        if (nodeToRecurse.rightChild == null) {
+          this.size -= 1;
+          return nodeToRecurse.leftChild;
+        }
+
+        nodeToRecurse.value = this.findMinimumNode(
+          nodeToRecurse.rightChild,
+        ).value;
+        nodeToRecurse.rightChild = this.removeRecursivelyInternal(
+          nodeToRecurse.rightChild,
+          nodeToRecurse.value,
+        );
+      }
+
+      return nodeToRecurse;
+    } catch (error) {
+      this.logger.error(
+        'Failed to remove value recursively from Binary Search Tree',
+        {
+          nodeToRecurse,
+          valueToRemove,
+          currentBinarySearchTreeState: this,
+          error,
+        },
+      );
+      throw error;
+    }
+  }
+
+  public find(valueToFind: T): BinaryTreeNode<T> | undefined {
     try {
       if (this.isEmpty()) {
         this.logger.warn(
           'Unable to find value in Binary Search Tree; Tree is empty; returning undefined.',
+          {
+            valueToFind,
+            currentBinarySearchTreeState: this,
+          },
         );
         return undefined;
       }
 
       let traversalNode = this.root;
       while (traversalNode != null) {
-        if (traversalNode.value === value) {
+        if (traversalNode.value === valueToFind) {
           return traversalNode;
-        } if (traversalNode.value < value) {
+        }
+        if (traversalNode.value < valueToFind) {
           traversalNode = traversalNode.rightChild;
         } else {
           traversalNode = traversalNode.leftChild;
@@ -119,12 +261,15 @@ export class BinarySearchTree<T> extends BaseDataStructure {
 
       this.logger.warn(
         'Unable to find value in Binary Search Tree; value not found; returning undefined.',
+        {
+          currentBinarySearchTreeState: this,
+        },
       );
 
       return undefined;
     } catch (error) {
       this.logger.error('Failed to find value in Binary Search Tree.', {
-        valueToFind: value,
+        valueToFind,
         currentBinarySearchTreeState: this,
         error,
       });
@@ -132,16 +277,21 @@ export class BinarySearchTree<T> extends BaseDataStructure {
     }
   }
 
-  public findMinimumNode(): BinaryTreeNode<T> | undefined {
+  public findMinimumNode(
+    nodeToTraverse: BinaryTreeNode<T> = this.root,
+  ): BinaryTreeNode<T> | undefined {
     try {
       if (this.isEmpty()) {
         this.logger.warn(
           'Unable to find minimum node in Binary Search Tree; Tree is empty; returning undefined.',
+          {
+            currentBinarySearchTreeState: this,
+          },
         );
         return undefined;
       }
 
-      let traversalNode = this.root;
+      let traversalNode = nodeToTraverse;
       do {
         if (
           traversalNode.leftChild === null
@@ -162,7 +312,9 @@ export class BinarySearchTree<T> extends BaseDataStructure {
     }
   }
 
-  public findMaximumNode(): BinaryTreeNode<T> | undefined {
+  public findMaximumNode(
+    nodeToTraverse: BinaryTreeNode<T> = this.root,
+  ): BinaryTreeNode<T> | undefined {
     try {
       if (this.isEmpty()) {
         this.logger.warn(
@@ -171,7 +323,7 @@ export class BinarySearchTree<T> extends BaseDataStructure {
         return undefined;
       }
 
-      let traversalNode = this.root;
+      let traversalNode = nodeToTraverse;
       do {
         if (
           traversalNode.rightChild === null
@@ -192,22 +344,42 @@ export class BinarySearchTree<T> extends BaseDataStructure {
     }
   }
 
-  public validate(node: BinaryTreeNode<T>): boolean {
+  public validateRecursively(node: BinaryTreeNode<T> = this.root): boolean {
     try {
-      if (!node) {
+      // if node itself is null or has no children, it is validated
+      if (node == null || (node.leftChild == null && node.rightChild == null)) {
         return true; // base case
       }
 
-      if (
-        node.leftChild.value <= node.value
-        && node.rightChild.value > node.value
-      ) {
-        return this.validate(node.leftChild) && this.validate(node.rightChild);
+      // if a node has only a left child, validate left subtree
+      if (node.leftChild != null && node.rightChild == null) {
+        if (node.leftChild.value < node.value) {
+          return this.validateRecursively(node.leftChild);
+        }
       }
+      // if a node has only a right child, validate right subtree
+      else if (node.leftChild == null && node.rightChild != null) {
+        if (node.rightChild.value >= node.value) {
+          return this.validateRecursively(node.rightChild);
+        }
+      }
+      // if a node has both right and left children, validate both subtrees
+      else if (
+        node.leftChild.value < node.value
+        && node.rightChild.value >= node.value
+      ) {
+        return (
+          this.validateRecursively(node.leftChild)
+          && this.validateRecursively(node.rightChild)
+        );
+      }
+
       this.logger.warn('Encountered unbalance Binary Search Tree node.', {
         currentNode: node,
         currentBinarySearchTreeState: this,
       });
+
+      // if all above checks failed, node is invalidated
       return false;
     } catch (error) {
       this.logger.error('Failed to validate Binary Search Tree.', {
