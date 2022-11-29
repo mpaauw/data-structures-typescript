@@ -1,4 +1,5 @@
 ![Build](https://github.com/mpaauw/data-structures-typescript/actions/workflows/build-and-test.yml/badge.svg)
+[![npm version](https://badge.fury.io/js/@mpaauw%2Fdata-structures-typescript.svg)](https://badge.fury.io/js/@mpaauw%2Fdata-structures-typescript)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # data-structures-typescript
