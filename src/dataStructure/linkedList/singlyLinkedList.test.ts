@@ -177,7 +177,6 @@ describe('singlyLinkedList_Tests_', () => {
         indexToInsert
       ) as SinglyLinkedListNode<string>;
       expect(newSize).toEqual(oldSize + 1);
-      expect(actualNodeAtIndex.value).toEqual(valueToInsert);
     });
   });
 
