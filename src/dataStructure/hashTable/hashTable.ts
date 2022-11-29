@@ -1,4 +1,4 @@
-import { BaseDataStructure } from '../../shared/baseDataStructure';
+import { BaseDataStructure } from '../../common/baseDataStructure';
 import { HashTableEntry } from './model/hashTableEntry';
 import { SinglyLinkedList } from '../linkedList/singlyLinkedList';
 

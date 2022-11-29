@@ -1,7 +1,10 @@
 /* eslint-disable no-param-reassign, @typescript-eslint/brace-style */
-import { BaseDataStructure } from '../../shared/baseDataStructure';
+import { BaseDataStructure } from '../../common/baseDataStructure';
 import { BinaryTreeNode } from './model/binaryTreeNode';
 
+/**
+ * Contains common functions for a Binary Search Tree.
+ */
 export class BinarySearchTree<T> extends BaseDataStructure {
   private root!: BinaryTreeNode<T>;
 
@@ -9,6 +12,10 @@ export class BinarySearchTree<T> extends BaseDataStructure {
     super(__filename);
   }
 
+  /**
+   * Inserts a new value into the Tree iteratively.
+   * @param valueToInsert value to insert.
+   */
   public insertIteratively(valueToInsert: T): void {
     try {
       const newNode = new BinaryTreeNode<T>(valueToInsert);
@@ -46,6 +53,10 @@ export class BinarySearchTree<T> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Inserts a new value into the Tree recursively.
+   * @param valueToInsert value to insert.
+   */
   public insertRecursively(valueToInsert: T): void {
     this.root = this.insertRecursivelyInternal(this.root, valueToInsert);
   }
@@ -84,6 +95,10 @@ export class BinarySearchTree<T> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Removes a value from the Tree iteratively.
+   * @param valueToRemove value to remove.
+   */
   public removeIteratively(valueToRemove: T): void {
     try {
       if (this.isEmpty()) {
@@ -119,6 +134,7 @@ export class BinarySearchTree<T> extends BaseDataStructure {
         );
         return;
       }
+
       // check to see if NTR (node to remove) has only one child
       if (traversalNode.leftChild == null || traversalNode.rightChild == null) {
         let replacementNode!: BinaryTreeNode<T>;
@@ -174,6 +190,10 @@ export class BinarySearchTree<T> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Removes a value from the Tree recursively.
+   * @param valueToRemove value to remove.
+   */
   public removeRecursively(valueToRemove: T): void {
     this.root = this.removeRecursivelyInternal(this.root, valueToRemove);
   }
@@ -234,6 +254,11 @@ export class BinarySearchTree<T> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Attempts to find a specified value within the Tree.
+   * @param valueToFind value to find.
+   * @returns value of node if found; undefined if otherwise.
+   */
   public find(valueToFind: T): BinaryTreeNode<T> | undefined {
     try {
       if (this.isEmpty()) {
@@ -277,6 +302,11 @@ export class BinarySearchTree<T> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Finds the minimum node value within the Tree.
+   * @param nodeToTraverse optional node to use as subtree root during traversal.
+   * @returns value of node if found; undefined if otherwise.
+   */
   public findMinimumNode(
     nodeToTraverse: BinaryTreeNode<T> = this.root,
   ): BinaryTreeNode<T> | undefined {
@@ -312,6 +342,11 @@ export class BinarySearchTree<T> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Finds the maxmimum node value within the Tree.
+   * @param nodeToTraverse optional node to use as subtree root during traversal.
+   * @returns value of node if found; undefined if otherwise.
+   */
   public findMaximumNode(
     nodeToTraverse: BinaryTreeNode<T> = this.root,
   ): BinaryTreeNode<T> | undefined {
@@ -344,6 +379,12 @@ export class BinarySearchTree<T> extends BaseDataStructure {
     }
   }
 
+  /**
+   * Validates the Tree recursively.
+   * Validation ensures that all nodes in the Tree follow BST rules.
+   * @param node optional node to use as subtree root during traversal.
+   * @returns true if validated, false if otherwise.
+   */
   public validateRecursively(node: BinaryTreeNode<T> = this.root): boolean {
     try {
       // if node itself is null or has no children, it is validated

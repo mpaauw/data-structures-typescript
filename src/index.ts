@@ -6,6 +6,9 @@ import { QueueNode } from './dataStructure/queue/model/queueNode';
 import { Queue } from './dataStructure/queue/queue';
 import { StackNode } from './dataStructure/stack/model/stackNode';
 import { Stack } from './dataStructure/stack/stack';
+import { BinarySearchTree } from './dataStructure/tree/binarySearchTree';
+import { BinaryTreeNode } from './dataStructure/tree/model/binaryTreeNode';
+import { TreeNode } from './dataStructure/tree/model/treeNode';
 
 export {
   SinglyLinkedList,
@@ -16,4 +19,7 @@ export {
   StackNode,
   Queue,
   QueueNode,
+  BinarySearchTree,
+  BinaryTreeNode,
+  TreeNode,
 };

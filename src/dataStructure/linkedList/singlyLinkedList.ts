@@ -1,4 +1,4 @@
-import { BaseDataStructure } from '../../shared/baseDataStructure';
+import { BaseDataStructure } from '../../common/baseDataStructure';
 import { SinglyLinkedListNode } from './model/singlyLinkedListNode';
 
 /**
@@ -362,5 +362,13 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
    */
   public getHead(): SinglyLinkedListNode<T> {
     return this.head;
+  }
+
+  /**
+   * Simple method that returns the tail node of the List for traversal purposes.
+   * @returns tail of Singly-Linked List.
+   */
+  public getTail(): SinglyLinkedListNode<T> {
+    return this.tail;
   }
 }
