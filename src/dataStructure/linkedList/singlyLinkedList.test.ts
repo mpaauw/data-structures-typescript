@@ -146,7 +146,6 @@ describe('singlyLinkedList_Tests_', () => {
       populateTestNodes();
       const oldSize = singlyLinkedList['size'];
       const oldNodeAtTailIndex = singlyLinkedList['tail'];
-      const insertAtTailSpy = jest.spyOn(singlyLinkedList, 'insertAtTail');
       const valueToInsert = faker.internet.emoji();
       const indexToInsertAt = oldSize - 1;
 
@@ -157,11 +156,9 @@ describe('singlyLinkedList_Tests_', () => {
       expect(singlyLinkedList['size']).toEqual(oldSize + 1);
       expect(singlyLinkedList['tail'].value).toEqual(valueToInsert);
       expect(oldNodeAtTailIndex.next).toEqual(singlyLinkedList['tail']);
-      expect(insertAtTailSpy).toHaveBeenCalledTimes(1);
     });
 
-    // TODO: fix bugs in test
-    test.skip('insertAt_Index_Return', () => {
+    test('insertAt_Index_Return', () => {
       // arrange
       populateTestNodes();
       const oldSize = singlyLinkedList['size'];

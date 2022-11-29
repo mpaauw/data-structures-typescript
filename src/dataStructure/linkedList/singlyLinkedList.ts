@@ -39,7 +39,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
           valueToInsert: value,
           currentListState: this,
           error,
-        },
+        }
       );
       throw error;
     }
@@ -70,7 +70,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
           valueToInsert: value,
           currentListState: this,
           error,
-        },
+        }
       );
       throw error;
     }
@@ -78,8 +78,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
 
   /**
    * Inserts a new value at a specified index in the Singly-Linked List.
-   * Index is zero-based.
-   * @param index location in list to insert.
+   * @param index zero-based index in which to insert.
    * @param value value to insert at specified index.
    */
   public insertAt(index: number, value: T): void {
@@ -91,7 +90,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
             index,
             valueToInsert: value,
             currentListState: this,
-          },
+          }
         );
         return;
       }
@@ -107,10 +106,13 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
       for (let i = 0; i < index - 1; i++) {
         iterator = iterator.next;
       }
+
+      const temp = iterator.next;
       const newNode = new SinglyLinkedListNode<T>();
       newNode.value = value;
-      newNode.next = iterator.next;
+      newNode.next = temp;
       iterator.next = newNode;
+
       this.size += 1;
       this.updateTail(newNode);
     } catch (error) {
@@ -121,7 +123,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
           valueToInsert: value,
           currentListState: this,
           error,
-        },
+        }
       );
       throw error;
     }
@@ -147,7 +149,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
         {
           valueToFind: value,
           currentListState: this,
-        },
+        }
       );
 
       return undefined;
@@ -175,7 +177,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
             index,
             indexToFind: index,
             currentListState: this,
-          },
+          }
         );
         return;
       }
@@ -205,7 +207,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
           indexToFind: index,
           currentListState: this,
           error,
-        },
+        }
       );
       throw error;
     }
@@ -221,7 +223,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
           'Unable to remove node from head of Singly-Linked List; no head node exists.',
           {
             currentListState: this,
-          },
+          }
         );
         return;
       }
@@ -236,7 +238,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
         {
           currentListState: this,
           error,
-        },
+        }
       );
       throw error;
     }
@@ -252,7 +254,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
           'Unable to remove node from tail of Singly-Linked List; no tail node exists.',
           {
             currentListState: this,
-          },
+          }
         );
         return;
       }
@@ -279,7 +281,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
         {
           currentListState: this,
           error,
-        },
+        }
       );
       throw error;
     }
@@ -297,7 +299,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
           {
             index,
             currentListState: this,
-          },
+          }
         );
         return;
       }
@@ -323,7 +325,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
           index,
           currentListState: this,
           error,
-        },
+        }
       );
       throw error;
     }
