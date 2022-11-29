@@ -177,28 +177,6 @@ describe('binarySearchTree_Tests_', () => {
       expect(binarySearchTree['size']).toEqual(oldSize - 1);
       expect(existingNodeAfterRemoval).toBeUndefined();
     });
-
-    // TODO: fix bugs in test
-    test.skip('removeIteratively_PopulatedTreeNodeToRemoveNotAtLeaf_SuccessfulRemoval', () => {
-      // arrange
-      populateTree(5);
-      const valueToRemove = faker.datatype.number();
-      binarySearchTree.insertIteratively(valueToRemove);
-      populateTree(5);
-      const existingNodePriorToRemoval = binarySearchTree.find(valueToRemove);
-      const oldSize = binarySearchTree['size'];
-
-      // act
-      binarySearchTree.removeIteratively(valueToRemove);
-
-      // assert
-      const existingNodeAfterRemoval = binarySearchTree.find(valueToRemove);
-      expect(oldSize).toBeGreaterThan(0);
-      expect(existingNodePriorToRemoval).toBeDefined();
-      expect(existingNodePriorToRemoval.value).toEqual(valueToRemove);
-      expect(binarySearchTree['size']).toEqual(oldSize - 1);
-      expect(existingNodeAfterRemoval).toBeUndefined();
-    });
   });
 
   describe('removeRecursively_Tests_', () => {
@@ -239,28 +217,6 @@ describe('binarySearchTree_Tests_', () => {
       populateTree();
       const valueToRemove = faker.datatype.number();
       binarySearchTree.insertIteratively(valueToRemove);
-      const existingNodePriorToRemoval = binarySearchTree.find(valueToRemove);
-      const oldSize = binarySearchTree['size'];
-
-      // act
-      binarySearchTree.removeRecursively(valueToRemove);
-
-      // assert
-      const existingNodeAfterRemoval = binarySearchTree.find(valueToRemove);
-      expect(oldSize).toBeGreaterThan(0);
-      expect(existingNodePriorToRemoval).toBeDefined();
-      expect(existingNodePriorToRemoval.value).toEqual(valueToRemove);
-      expect(binarySearchTree['size']).toEqual(oldSize - 1);
-      expect(existingNodeAfterRemoval).toBeUndefined();
-    });
-
-    // TODO: fix bug in test
-    test.skip('removeRecursively_PopulatedTreeNodeToRemoveNotAtLeaf_SuccessfulRemoval', () => {
-      // arrange
-      populateTree(5);
-      const valueToRemove = faker.datatype.number();
-      binarySearchTree.insertIteratively(valueToRemove);
-      populateTree(5);
       const existingNodePriorToRemoval = binarySearchTree.find(valueToRemove);
       const oldSize = binarySearchTree['size'];
 

@@ -78,8 +78,7 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
 
   /**
    * Inserts a new value at a specified index in the Singly-Linked List.
-   * Index is zero-based.
-   * @param index location in list to insert.
+   * @param index zero-based index in which to insert.
    * @param value value to insert at specified index.
    */
   public insertAt(index: number, value: T): void {
@@ -107,10 +106,13 @@ export class SinglyLinkedList<T> extends BaseDataStructure {
       for (let i = 0; i < index - 1; i++) {
         iterator = iterator.next;
       }
+
+      const temp = iterator.next;
       const newNode = new SinglyLinkedListNode<T>();
       newNode.value = value;
-      newNode.next = iterator.next;
+      newNode.next = temp;
       iterator.next = newNode;
+
       this.size += 1;
       this.updateTail(newNode);
     } catch (error) {

@@ -1,6 +1,6 @@
 {
   "name": "data-structures-typescript",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "description": "A collection of commonly used data structures written in TypeScript.",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
