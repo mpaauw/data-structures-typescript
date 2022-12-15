@@ -62,16 +62,16 @@ singlyLinkedList.insertAtTail('blue');
 singlyLinkedList.insertAt(1, 'yellow');
 
 // attempt to find a value within the linked list:
-singlyLinkedList.find('green');
+const valueFound = singlyLinkedList.find('green');
 
 // attempt to find the value at a specific index within the list:
-singlyLinkedList.findAt(2);
+const valueFoundAt = singlyLinkedList.findAt(2);
 
 // retrieve the head of the list:
-singlyLinkedList.getHead();
+const head = singlyLinkedList.getHead();
 
 // retrieve the tail of the list:
-singlyLinkedList.getTail();
+const tail = singlyLinkedList.getTail();
 
 // determines if the list is empty or not:
 const isEmpty = singlyLinkedList.isEmpty();
@@ -119,10 +119,10 @@ const stack = new Stack<string>();
 stack.push('fish');
 
 // return the value from the top of the Stack:
-stack.peek();
+const peekedValue = stack.peek();
 
 // remove and return the value from the top of the Stack:
-stack.pop();
+const poppedValue = stack.pop();
 
 // determine if the Stack is empty or not:
 const isEmpty = stack.isEmpty();
@@ -159,6 +159,3 @@ const isEmpty = binarySearchTree.isEmpty();
 // validate whether or not the Tree maintains BST rules:
 const isBST = binarySearchTree.validateRecursively();
 ```
-
-
-
