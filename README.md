@@ -44,7 +44,7 @@ const containsCat = hashTable.contains('cat');
 hashTable.remove('cat');
 ```
 
-### singly-Linked List
+### Singly-Linked List
 
 ```typescript
 import { SinglyLinkedList } from '@mpaauw/data-structures-typescript';
